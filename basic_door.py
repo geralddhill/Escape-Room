@@ -22,7 +22,7 @@ class BasicDoor(Door):
         :return: Description of the door.
         """
 
-        return f"You encounter a basic door, you can either push it or pull it to open."
+        return f"You encounter a basic door. You can either push it or pull it to open."
 
 
     def menu_options(self) -> str:
@@ -54,13 +54,14 @@ class BasicDoor(Door):
 
         :raise ValueError: Parameter option can only be in range 1-2.
         """
+        if option < 1 or option > self.get_menu_max():
+            raise ValueError("Parameter option can only be in range 1-10.")
+
         self._input = option
         if self._input == 1:
             return f"You push the door."
-        elif self._input == 2:
-            return f"You pull the door."
         else:
-            raise ValueError(f"Parameter option can only be in range 1-2.")
+            return f"You pull the door."
 
 
     def is_unlocked(self) -> bool:
