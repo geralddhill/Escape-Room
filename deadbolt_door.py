@@ -16,8 +16,13 @@ class DeadboltDoor(Door):
 
         Randomizes the state of each bolt.
         """
-        self._bolt1: bool = choice([True, False])
-        self._bolt2: bool = choice([True, False])
+        self._bolt1: bool = True
+        self._bolt2: bool = True
+
+        # Makes sure both bolts aren't unlocked to start
+        while self._bolt1 and self._bolt2:
+            self._bolt1: bool = choice([True, False])
+            self._bolt2: bool = choice([True, False])
 
 
     def examine_door(self) -> str:

@@ -78,9 +78,9 @@ class ComboDoor(Door):
             raise ValueError("Door is able to be unlocked. No need for clue.")
 
         if self._input < self._solution:
-            return f"Try a lower value."
-        else:
             return f"Try a higher value."
+        else:
+            return f"Try a lower value."
 
 
     def success(self) -> str:

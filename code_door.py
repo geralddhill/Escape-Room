@@ -15,9 +15,11 @@ class CodeDoor(Door):
 
         Randomizes the state of each character in the solution. Keypad starts in state "OOO".
         """
-        self._solution: list[str] = []
-        for i in range(3):
-            self._solution.append(choice(['O', 'X']))
+        self._solution: list[str] = ['O', 'O', 'O']
+        # Makes sure input and solution won't be equal to start
+        while self._solution == ['O', 'O', 'O']:
+            for i in range(3):
+                self._solution[i] = choice(['O', 'X'])
 
         self._input: list[str] = ['O', 'O', 'O']
 
