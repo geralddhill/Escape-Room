@@ -5,7 +5,7 @@ class DoorFactory(ABC):
     """Interface for door factories."""
 
     @abstractmethod
-    def create_door(self) -> Door:
+    def create_door(self):
         """Factory method to create an instance of a door.
 
         Door type is chosen at random.

@@ -1,6 +1,12 @@
+from basic_door import BasicDoor
+from combo_door import ComboDoor
 from door import Door
+from random import randint
+from door_factory import DoorFactory
+from locked_door import LockedDoor
 
-class EasyDoorFactory(Door):
+
+class EasyDoorFactory(DoorFactory):
     """Door factory that creates an instance or a random easy door.
     """
 
@@ -11,3 +17,11 @@ class EasyDoorFactory(Door):
 
         :return: Door instance
         """
+        i = randint(1, 3)
+
+        if i == 1:
+            return BasicDoor()
+        elif i == 2:
+            return LockedDoor()
+        else:
+            return ComboDoor()
