@@ -1,23 +1,25 @@
 from door import Door
 from random import choice
-class DeadboltDoor(Door):
-    """DeadboltDoor class represents a door with two deadbolts that must both be unlocked to unlock the door.
+class CodeDoor(Door):
+    """CodeDoor class represents a three character code that must be entered correctly for the door to be unlocked.
 
-    Both deadbolts are randomized whether they are locked or unlocked to start, and the user must unlock both of them
-    in order to unlock the door.
+    Each character in the code can be either 'X' or 'O' and the user can toggle between these for each key.
 
             Attributes:
-                _bolt1: State of bolt 1 (bool); True is unlocked
-                _bolt2: State of bolt 2 (bool); True is unlocked
+                _solution: List of characters for the solution to unlock the door.
+                _input: Current state of the keypad.
     """
 
     def __init__(self) -> None:
-        """Constructor for class LockedDoor
+        """Constructor for class Door
 
-        Randomizes the state of each bolt.
+        Randomizes the state of each character in the solution. Keypad starts in state "OOO".
         """
-        self._bolt1: bool = choice([True, False])
-        self._bolt2: bool = choice([True, False])
+        self._solution: list[str] = []
+        for i in range(3):
+            self._solution.append(choice(['O', 'X']))
+
+        self._input: list[str] = ['O', 'O', 'O']
 
 
     def examine_door(self) -> str:
@@ -26,7 +28,7 @@ class DeadboltDoor(Door):
         :return: Description of the door.
         """
 
-        return f"You encounter a double deadbolt door. Both deadbolts must be unlocked to open it, but you can't tell from looking at them whether they're locked or unlocked."
+        return f"You encounter a coded door, you must enter the correct code to open the door. There are 3 characters displayed, each one can be toggled to either an 'X' or an 'O'. You can press the key under each character to toggle it."
 
 
     def menu_options(self) -> str:
@@ -34,7 +36,7 @@ class DeadboltDoor(Door):
 
         :return: String of menu options for the door.
         """
-        return f"1. Toggle Bolt 1\n2. Toggle Bolt 2"
+        return f"1. Press Key 1\n2. Press Key 2\n3. Press Key 3"
 
 
     def get_menu_max(self) -> int:
@@ -42,7 +44,7 @@ class DeadboltDoor(Door):
 
         :return: Maximum number of menu options for the door.
         """
-        return 2
+        return 3
 
 
     def attempt(self, option: int) -> str:
@@ -61,12 +63,20 @@ class DeadboltDoor(Door):
         if option < 1 or option > self.get_menu_max():
             raise ValueError(f"Parameter option can only be in range 1-{self.get_menu_max()}.")
 
-        if option == 1:
-            self._bolt1 = not self._bolt1
-            return "You toggle the first bolt."
+        if self._input[option - 1] == 'X':
+            self._input[option - 1] = 'O'
+        elif self._input[option - 1] == 'O':
+            self._input[option - 1] = 'X'
         else:
-            self._bolt2 = not self._bolt2
-            return "You toggle the second bolt."
+            raise ValueError("Solution contains invalid characters.")
+
+        if option == 1:
+            return "You toggle the first character"
+        if option == 2:
+            return "You toggle the second character"
+        else:
+            return "You toggle the third character"
+
 
 
 
@@ -75,7 +85,7 @@ class DeadboltDoor(Door):
 
         :return: Maximum number of menu options for the door.
         """
-        return self._bolt1 and self._bolt2
+        return self._input == self._solution
 
 
     def clue(self) -> str:
@@ -83,13 +93,12 @@ class DeadboltDoor(Door):
 
         :return: Hint for the user (str).
         """
-        if self._bolt1 and self._bolt2:
-            raise ValueError("Door is able to be unlocked. No need for clue.")
+        num_correct: int = 0
+        for i in range(self.get_menu_max()):
+            if self._input[i] == self._solution[i]:
+                num_correct += 1
 
-        if not self._bolt1 and not self._bolt2:
-            return "You jiggle the door... it's completely locked."
-        else:
-            return "You jiggle the door... it seems like one of the bolts is unlocked."
+        return f"{num_correct} keys are correct."
 
 
     def success(self) -> str:
@@ -97,4 +106,4 @@ class DeadboltDoor(Door):
 
         :return: Congratulatory message for the user (str).
         """
-        return f"You unlocked both deadbolts and opened the door."
+        return f"You entered the correct code and opened the door."
