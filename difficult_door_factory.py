@@ -3,8 +3,8 @@ import random
 from combo_door import ComboDoor
 from deadbolt_door import DeadboltDoor
 from code_door import CodeDoor
-class DiffucultDoorFactory(DoorFactory):
-    """Door factory that creates an instance or a random diffucult door.
+class DifficultDoorFactory(DoorFactory):
+    """Door factory that creates an instance or a random difficult door.
     """
 
     def create_door(self):
