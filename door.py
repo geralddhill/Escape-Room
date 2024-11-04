@@ -15,7 +15,7 @@ class Door(ABC):
     def menu_options(self) -> str:
         """Returns a string with the menu options that user can choose from when attempting to unlock the door.
 
-        :return: String of menu options for the door.
+        :return : String of menu options for the door.
         """
         pass
 
@@ -37,7 +37,7 @@ class Door(ABC):
         :param option: Integer representing the menu option chosen by the user.
         :type option: int
         
-        :return event: String describing the attempt to unlock the door.
+        :return: String describing the attempt to unlock the door.
         """
         pass
 
