@@ -35,8 +35,9 @@ class Door(ABC):
         Return a string describing the user’s attempt.
 
         :param option: Integer representing the menu option chosen by the user.
-
-        :return: String describing the attempt to unlock the door.
+        :type option: int
+        
+        :return event: String describing the attempt to unlock the door.
         """
         pass
 
@@ -48,6 +49,7 @@ class Door(ABC):
         """
         pass
 
+    @abstractmethod
     def clue(self) -> str:
         """Returns a hint for the user if their attempt was unsuccessful.
 
@@ -55,6 +57,7 @@ class Door(ABC):
         """
         pass
 
+    @abstractmethod
     def success(self) -> str:
         """Returns a congratulatory message if the user attempt was successful.
 
