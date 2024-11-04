@@ -3,8 +3,8 @@ from random import randint
 class BasicDoor(Door):
     """BasicDoor class represents a basic door
             Attributes:
-                _solution: int
-                _input: int
+                _solution: Integer of the solution to unlock the door.
+                _input: Integer of the most recent attempt to unlock the door.
     """
 
     def __init__(self) -> None:

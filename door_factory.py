@@ -1,6 +1,15 @@
-import abc
+from abc import ABC, abstractmethod
+from door import Door
 
-class DoorFactory(abc.ABC):
-    @abc.abstractmethod
-    def create_door(self):
+class DoorFactory(ABC):
+    """Interface for door factories."""
+
+    @abstractmethod
+    def create_door(self) -> Door:
+        """Factory method to create an instance of a door.
+
+        Door type is chosen at random.
+
+        :return: Door instance
+        """
         pass
