@@ -25,5 +25,3 @@ class DiffucultDoorFactory(DoorFactory):
         else:
             # return CodeDoor
             return CodeDoor()
-d = DiffucultDoorFactory()
-print(d.create_door())
