@@ -43,7 +43,4 @@ class BasicDoor(Door):
         '''returns a congratulatory message if the user attempt was successful.'''
         return f"Congratulations, you opened the door."
         
-b = BasicDoor()
-print(b.menu_options())
-print(b.attempt(1))
-print(b.is_unlocked())
+
