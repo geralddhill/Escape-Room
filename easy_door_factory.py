@@ -17,7 +17,7 @@ class EasyDoorFactory(DoorFactory):
 
         :return: Door instance
         """
-        i = randint(1, 3)
+        i: int = randint(1, 3)
 
         if i == 1:
             return BasicDoor()
