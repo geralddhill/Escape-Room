@@ -51,14 +51,18 @@ class LockedDoor(Door):
         :type option: int
 
         :return: String describing the attempt to unlock the door.
+
+        :raise ValueError: Parameter option can only be in range 1-3.
         """
         self._input = option
         if self._input == 1:
             return f"You look under the mat."
         elif self._input == 2:
             return f"You look under the flower pot."
-        else:
+        elif self._input == 3:
             return f"You look under the fake rock."
+        else:
+            raise ValueError("Parameter option can only be in range 1-3.")
 
 
     def is_unlocked(self) -> bool:
@@ -83,5 +87,3 @@ class LockedDoor(Door):
         :return: Congratulatory message for the user (str).
         """
         return f"You found the key and opened the door."
-        
-
