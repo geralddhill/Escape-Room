@@ -1,19 +1,23 @@
 from door import Door
-from random import randint
-class ComboDoor(Door):
-    """ComboDoor class represents a door with a combination lock.
+from random import choice
+class DeadboltDoor(Door):
+    """DeadboltDoor class represents a door with two deadbolts that must both be unlocked to unlock the door.
+
+    Both deadbolts are randomized whether they are locked or unlocked to start, and the user must unlock both of them
+    in order to unlock the door.
+
             Attributes:
-                _solution: Integer of the solution to unlock the door.
-                _input: Integer of the most recent attempt to unlock the door.
+                _bolt1: State of bolt 1 (bool); True is unlocked
+                _bolt2: State of bolt 2 (bool); True is unlocked
     """
 
     def __init__(self) -> None:
-        """Constructor for class ComboDoor
+        """Constructor for class LockedDoor
 
-        Randomize the solution to a number 1-10.
+        Randomizes the location of they key. Each location is assigned to a number 1-3.
         """
-        self._solution = randint(1,10)
-        self._input = 0
+        self._bolt1 = choice([True, False])
+        self._bolt2 = choice([True, False])
 
 
     def examine_door(self) -> str:
@@ -22,7 +26,7 @@ class ComboDoor(Door):
         :return: Description of the door.
         """
 
-        return f"You encounter a door with a combination lock. You can spin the dial to a number 1-10."
+        return f"You encounter a double deadbolt door. Both deadbolts must be unlocked to open it, but you can't tell from looking at them whether they're locked or unlocked."
 
 
     def menu_options(self) -> str:
@@ -30,7 +34,7 @@ class ComboDoor(Door):
 
         :return: String of menu options for the door.
         """
-        return f"Enter a number 1-10:"
+        return f"1. Toggle Bolt 1\n2. Toggle Bolt 2"
 
 
     def get_menu_max(self) -> int:
@@ -38,7 +42,7 @@ class ComboDoor(Door):
 
         :return: Maximum number of menu options for the door.
         """
-        return 10
+        return 2
 
 
     def attempt(self, option: int) -> str:
@@ -52,13 +56,18 @@ class ComboDoor(Door):
 
         :return: String describing the attempt to unlock the door.
 
-        :raise ValueError: Parameter option can only be in range 1-10.
+        :raise ValueError: Parameter option can only be in range 1-2.
         """
         if option < 1 or option > self.get_menu_max():
             raise ValueError(f"Parameter option can only be in range 1-{self.get_menu_max()}.")
 
-        self._input = option
-        return f"You turn the dial to... {self._input}"
+        if option == 1:
+            self._bolt1 = not self._bolt1
+            return "You toggle the first bolt."
+        else:
+            self._bolt2 = not self._bolt2
+            return "You toggle the second bolt."
+
 
 
     def is_unlocked(self) -> bool:
@@ -66,7 +75,7 @@ class ComboDoor(Door):
 
         :return: Maximum number of menu options for the door.
         """
-        return self._input == self._solution
+        return self._bolt1 and self._bolt2
 
 
     def clue(self) -> str:
@@ -74,13 +83,13 @@ class ComboDoor(Door):
 
         :return: Hint for the user (str).
         """
-        if self._input == self._solution:
+        if self._bolt1 and self._bolt2:
             raise ValueError("Door is able to be unlocked. No need for clue.")
 
-        if self._input < self._solution:
-            return f"Try a lower value."
+        if not self._bolt1 and not self._bolt2:
+            return "You jiggle the door... it's completely locked."
         else:
-            return f"Try a higher value."
+            return "You jiggle the door... it seems like one of the bolts is unlocked."
 
 
     def success(self) -> str:
@@ -88,4 +97,4 @@ class ComboDoor(Door):
 
         :return: Congratulatory message for the user (str).
         """
-        return f"You found the correct value and opened the door."
+        return f"You unlocked both deadbolts and opened the door."

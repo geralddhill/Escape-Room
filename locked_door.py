@@ -52,10 +52,10 @@ class LockedDoor(Door):
 
         :return: String describing the attempt to unlock the door.
 
-        :raise ValueError: Parameter option can only be in range 1-3.
+        :raise ValueError: Parameter option can only be in range 1-2.
         """
         if option < 1 or option > self.get_menu_max():
-            raise ValueError("Parameter option can only be in range 1-10.")
+            raise ValueError(f"Parameter option can only be in range 1-{self.get_menu_max()}.")
 
         self._input = option
         if self._input == 1:
