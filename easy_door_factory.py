@@ -19,9 +19,9 @@ class EasyDoorFactory(DoorFactory):
         """
         door_choice: int = randint(1, 3)
 
-        if i == 1:
+        if door_choice == 1:
             return BasicDoor()
-        elif i == 2:
+        elif door_choice == 2:
             return LockedDoor()
         else:
             return ComboDoor()
