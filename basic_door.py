@@ -12,8 +12,8 @@ class BasicDoor(Door):
 
         Randomizes the solution to either push (1) or pull (2).
         """
-        self._solution = randint(1,2)
-        self._input = 0
+        self._solution: int = randint(1,2)
+        self._input: int = 0
 
 
     def examine_door(self) -> str:

@@ -12,8 +12,8 @@ class LockedDoor(Door):
 
         Randomizes the location of they key. Each location is assigned to a number 1-3.
         """
-        self._solution = randint(1,3)
-        self._input = 0
+        self._solution: int = randint(1,3)
+        self._input: int = 0
 
 
     def examine_door(self) -> str:

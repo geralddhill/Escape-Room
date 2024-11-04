@@ -16,8 +16,8 @@ class DeadboltDoor(Door):
 
         Randomizes the location of they key. Each location is assigned to a number 1-3.
         """
-        self._bolt1 = choice([True, False])
-        self._bolt2 = choice([True, False])
+        self._bolt1: bool = choice([True, False])
+        self._bolt2: bool = choice([True, False])
 
 
     def examine_door(self) -> str:
