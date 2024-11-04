@@ -1,18 +1,18 @@
 from door import Door
 from random import randint
-class BasicDoor(Door):
-    """BasicDoor class represents a normal push/pull door
+class LockedDoor(Door):
+    """LockedDoor class represents a door with a lock that must be unlocked with a physical key.
             Attributes:
                 _solution: Integer of the solution to unlock the door.
                 _input: Integer of the most recent attempt to unlock the door.
     """
 
     def __init__(self) -> None:
-        """Constructor for class BasicDoor
+        """Constructor for class LockedDoor
 
-        Randomizes the solution to either push (1) or pull (2).
+        Randomizes the location of they key. Each location is assigned to a number 1-3.
         """
-        self._solution = randint(1,2)
+        self._solution = randint(1,3)
         self._input = 0
 
 
@@ -22,7 +22,7 @@ class BasicDoor(Door):
         :return: Description of the door.
         """
 
-        return f"You encounter a basic door, you can either push it or pull it to open."
+        return f"You encounter a locked door, you should look around for the key."
 
 
     def menu_options(self) -> str:
@@ -30,7 +30,7 @@ class BasicDoor(Door):
 
         :return: String of menu options for the door.
         """
-        return f"1. Push\n2. Pull"
+        return f"1. Look under the mat.\n2. Look under the flower pot.\n3. Look under the fake rock."
 
 
     def get_menu_max(self) -> int:
@@ -38,7 +38,7 @@ class BasicDoor(Door):
 
         :return: Maximum number of menu options for the door.
         """
-        return 2
+        return 3
 
 
     def attempt(self, option: int) -> str:
@@ -54,9 +54,11 @@ class BasicDoor(Door):
         """
         self._input = option
         if self._input == 1:
-            return f"You push the door."
+            return f"You look under the mat."
+        elif self._input == 2:
+            return f"You look under the flower pot."
         else:
-            return f"You pull the door."
+            return f"You look under the fake rock."
 
 
     def is_unlocked(self) -> bool:
@@ -72,7 +74,7 @@ class BasicDoor(Door):
 
         :return: Hint for the user (str).
         """
-        return f"Try the other way."
+        return f"Look somewhere else."
 
 
     def success(self) -> str:
@@ -80,6 +82,6 @@ class BasicDoor(Door):
 
         :return: Congratulatory message for the user (str).
         """
-        return f"Congratulations, you opened the door."
+        return f"You found the key and opened the door."
         
 
